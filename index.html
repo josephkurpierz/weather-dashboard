@@ -13,19 +13,19 @@
   <main class="container">
     <div class="row main-row">
       <div class="col-3">
-        <input type="text" id="searchBox">
-        <button class="searchBtn">Search</button>
-        <ul class="savedCities">citylist
+        <input type="text" id="citySearch">
+        <button id="searchButton" class="searchBtn btn" type="submit">Search</button>
+        <ul id="cityList" class="savedCities">citylist
+          <!-- <li class="savedCities">city</li>
           <li class="savedCities">city</li>
           <li class="savedCities">city</li>
           <li class="savedCities">city</li>
-          <li class="savedCities">city</li>
-          <li class="savedCities">city</li>
+          <li class="savedCities">city</li> -->
         </ul>
       </div>
       <div class="col-9">
         <div class="display">displaybox</div>
-        <div class="row">
+        <div id="forcast" class="row">
           <div class="col-2">weatherbox</div>
           <div class="col-2">weatherbox</div>
           <div class="col-2">weatherbox</div>
@@ -35,6 +35,6 @@
       </div>
     </div>
   </main>
-  
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>
