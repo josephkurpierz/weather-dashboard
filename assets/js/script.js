@@ -6,14 +6,15 @@ var city;
 
 var getWeather = function (city) {
 
- // var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
-  var weeklyURL = "https://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&cnt=5&appid=" + APIKey;
+  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
+  // PAID SERVICE?? var weeklyURL = "https://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&cnt=5&appid=" + APIKey;
 
-  fetch(weeklyURL).then(function (response) {
+  fetch(queryURL).then(function (response) {
     //convert to JSON object // 
     if (response.ok) {
       response.json().then(function (data) {
         console.log(data);
+        //extract latitude and longitude to use in a second APIfetch
       })
     } else {
       alert("city not found");
