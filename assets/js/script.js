@@ -11,8 +11,8 @@ var getLocation = function (city) {
   var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
   fetch(queryURL).then(function (response) {
-    //convert to JSON object // 
     if (response.ok) {
+      //convert to JSON object // 
       response.json().then(function (data) {
         //extract latitude and longitude to use in a second APIfetch
         latitude = data.coord.lat;
@@ -30,10 +30,33 @@ var getLocation = function (city) {
 };
 
 var getWeather = function () {
+  console.log("this runs first even though it is called after the other fetch. I don't understand asynchronous")
   var weatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + APIKey;
   fetch(weatherURL).then(function (response) {
     if (response.ok) {
       console.log(response);
+      response.json().then(function(data) {
+        console.log(data);
+        //get current weather data
+        // data.current.temp
+        // data.current.humidity
+        // data.current.uvi
+        // data.current.wind_speed
+        //data.current.weather[0].icon
+        console.log("temp=",data.current.temp);
+        console.log("uvindex=",data.current.uvi);
+        console.log("icon",data.current.weather[0].icon);
+        // loop through data.daily[] for 5 day from 1-5
+        // data.daily[i].humidity
+        // data.daily[i].temp.day
+        // data.daily[i].uvi
+        // data.daily[i].wind_speed
+        // data.daily[i].weather[0].icon
+        console.log("tomorrows temp=",data.daily[1].temp.day);
+        console.log("tomorrows windspeed=",data.daily[1].wind_speed);
+        console.log("tomorrows icon=",data.daily[1].weather[0].icon);
+
+      })
     } else {
       alert("invalid city")
     }
