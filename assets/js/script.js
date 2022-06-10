@@ -35,23 +35,29 @@ var getLocation = function (city) {
     })
 };
 
-var currentWeather = function (city, current) {
+var currentWeather = function (city, data) {
   //saving pertinent weather parameters to variables
-  var temperature = current.temp;
-  var humidity = current.humidity;
-  var UVIndex = current.uvi;
-  var windspeed = current.wind_speed;
-  var weatherIcon = current.weather[0].icon;
+  var temperature = data.temp;
+  var humidity = data.humidity;
+  var UVIndex = data.uvi;
+  var windspeed = data.wind_speed;
+  var weatherIcon = data.weather[0].icon;
   
-  console.log("temperature",temperature);
   // create card to append to html
   var currentCard = document.createElement("card");
-  currentCard.innerHTML="<h2>"+city+"</h2><p>temperature:"+ temperature+"</p>";
+  currentCard.innerHTML=`<h2>${city}</h2><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>UV Index: ${UVIndex}</p><p>Wind Speed: ${windspeed}</p><p>${weatherIcon}</p>`;
   //set classes and such
   displayBoxEl.appendChild(currentCard);
 }
 
 var forecastWeather = function (forecast) {
+  console.log("forecast length=",forecast.length)
+  var i=0;
+  var temperature = forecast[i].temp;
+  var humidity = forecast[i].humidity;
+  var UVIndex = forecast[i].uvi;
+  var windspeed = forecast[i].wind_speed;
+  // var weatherIcon = forecast.weather[0].icon;
   //loop through data"forecast.length
 }
 
@@ -77,18 +83,18 @@ var getWeather = function (location) {
         // data.current.uvi
         // data.current.wind_speed
         //data.current.weather[0].icon
-        console.log("temp=", data.current.temp);
-        console.log("uvindex=", data.current.uvi);
-        console.log("icon", data.current.weather[0].icon);
+        // console.log("temp=", data.current.temp);
+        // console.log("uvindex=", data.current.uvi);
+        // console.log("icon", data.current.weather[0].icon);
         // loop through data.daily[] for 5 day from 1-5
         // data.daily[i].humidity
         // data.daily[i].temp.day
         // data.daily[i].uvi
         // data.daily[i].wind_speed
         // data.daily[i].weather[0].icon
-        console.log("tomorrows temp=", data.daily[1].temp.day);
-        console.log("tomorrows windspeed=", data.daily[1].wind_speed);
-        console.log("tomorrows icon=", data.daily[1].weather[0].icon);
+        // console.log("tomorrows temp=", data.daily[1].temp.day);
+        // console.log("tomorrows windspeed=", data.daily[1].wind_speed);
+        // console.log("tomorrows icon=", data.daily[1].weather[0].icon);
 
       })
     } else {
