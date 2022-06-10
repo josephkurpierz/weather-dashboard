@@ -35,6 +35,9 @@ var getLocation = function (city) {
     })
 };
 
+//create cart to house current weather conditions
+var currentCard = document.createElement("card");
+
 var currentWeather = function (city, data) {
   //saving pertinent weather parameters to variables
   var temperature = data.temp;
@@ -43,22 +46,23 @@ var currentWeather = function (city, data) {
   var windspeed = data.wind_speed;
   var weatherIcon = data.weather[0].icon;
   
-  // create card to append to html
-  var currentCard = document.createElement("card");
-  currentCard.innerHTML=`<h2>${city}</h2><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>UV Index: ${UVIndex}</p><p>Wind Speed: ${windspeed}</p><p>${weatherIcon}</p>`;
-  //set classes and such
+  // fill card with current weather conditions to append to html
+  currentCard.innerHTML=`<h2>${city}</h2><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>UV Index: ${UVIndex}</p><p>Wind Speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png" alt="">`;
+  //set classes and such TO DO
   displayBoxEl.appendChild(currentCard);
 }
 
 var forecastWeather = function (forecast) {
-  console.log("forecast length=",forecast.length)
-  var i=0;
-  var temperature = forecast[i].temp;
+  
+  for (var i=0; i< 5; i++){
+  var temperature = forecast[i].temp.day;
   var humidity = forecast[i].humidity;
   var UVIndex = forecast[i].uvi;
   var windspeed = forecast[i].wind_speed;
+  console.log("temperature from loop", temperature);
   // var weatherIcon = forecast.weather[0].icon;
   //loop through data"forecast.length
+  }
 }
 
 var renderWeather = function (city, data) {
@@ -116,9 +120,10 @@ var displayWeather = function (conditionsFromWeatherURL) {
 };
 
 var addCity = function (cityName) {
-  var newCity = document.createElement("button");
-  newCity.textContent = cityName;
-  listBoxEl.appendChild(newCity);
+  var newCityEl = document.createElement("button");
+  newCityEl.textContent = cityName;
+  newCityEl.classList ="btn border-dark";
+  listBoxEl.appendChild(newCityEl);
   // save list to local storage
 }
 
