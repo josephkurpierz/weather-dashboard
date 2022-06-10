@@ -53,15 +53,23 @@ var currentWeather = function (city, data) {
 }
 
 var forecastWeather = function (forecast) {
-  
+  if(forecastBoxEl.lastChild){
+    while(forecastBoxEl.lastChild){
+      forecastBoxEl.removeChild(forecastBoxEl.lastChild);
+    }
+  }
+  //loop through data"forecast.length
   for (var i=0; i< 5; i++){
   var temperature = forecast[i].temp.day;
   var humidity = forecast[i].humidity;
   var UVIndex = forecast[i].uvi;
   var windspeed = forecast[i].wind_speed;
+  var weatherIcon = forecast[i].weather[0].icon;
   console.log("temperature from loop", temperature);
-  // var weatherIcon = forecast.weather[0].icon;
-  //loop through data"forecast.length
+  var forecastCardEl = document.createElement("card")
+  forecastCardEl.classList="col-2"
+  forecastCardEl.innerHTML=`<p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>UV Index: ${UVIndex}</p><p>Wind speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png">`
+  forecastBoxEl.appendChild(forecastCardEl);
   }
 }
 
@@ -122,7 +130,7 @@ var displayWeather = function (conditionsFromWeatherURL) {
 var addCity = function (cityName) {
   var newCityEl = document.createElement("button");
   newCityEl.textContent = cityName;
-  newCityEl.classList ="btn border-dark";
+  newCityEl.classList ="btn border-dark col-12";
   listBoxEl.appendChild(newCityEl);
   // save list to local storage
 }
