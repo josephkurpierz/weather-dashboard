@@ -6,17 +6,12 @@ var displayBoxEl = document.getElementById("display");
 var forecastBoxEl = document.getElementById("forecast");
 var city;
 
-
+// function to pull local storage of most previous searched city
 var retrieveCities = function () {
   var retrievedCity = localStorage.getItem("newCty");
   console.log(retrievedCity);
   addCity(retrievedCity);
 };
-
-
-
-
-
 
 //function to get coordinates of city based on name
 var getLocation = function (city) {
@@ -126,16 +121,7 @@ var addCity = function (cityName) {
   newCityEl.textContent = cityName;
   newCityEl.classList = "btn border-dark col-12 cityBtn";
   listBoxEl.appendChild(newCityEl);
-  // save list to local storage
-  // console.log(newCityEl.textContent);
-  // for (var i = 0; i<cityArr.length; i++){
-  //  if (savedCity){
-  //     cityArr.push(savedCity);
-  // }
-  // }
-  //vnew array to store cities if no vlaues
-  //add new city
-
+  //save city to local storage
   localStorage.setItem("newCty", newCityEl.textContent);
 }
 

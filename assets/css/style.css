@@ -1,51 +1,49 @@
-.low{
-  color:green;
+.low {
+  color: green;
 }
 
-.moderate{
+.moderate {
   color: yellow;
 }
 
-.high{
+.high {
   color: red;
 }
 
-h1,h3{
+h1,
+h3 {
   text-align: center;
   background-color: blue;
   color: white;
 }
 
-body{
+body {
   background-color: cadetblue;
 }
 
-.btn{
+.btn {
   background-color: lightblue;
   border: 1px solid black;
 }
 
-#searchBox{
+#searchBox {
   display: flex;
   flex-flow: column nowrap;
 }
 
-.forecastCard{
+.forecastCard {
   border: 1px solid black;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
-#display, .forecastCard{
+#display,
+.forecastCard {
   border: 1px black solid;
   background-color: blanchedalmond;
 }
-/* #forecast{
-  display: flex;
-  align-content:space-between;
-  flex-wrap: wrap;
-} */
-.forecastCard{
+
+.forecastCard {
   display: flex;
   align-content: space-between;
   flex-wrap: wrap;
