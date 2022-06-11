@@ -40,3 +40,13 @@ body{
   border: 1px black solid;
   background-color: blanchedalmond;
 }
+/* #forecast{
+  display: flex;
+  align-content:space-between;
+  flex-wrap: wrap;
+} */
+.forecastCard{
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
+}

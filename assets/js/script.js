@@ -15,6 +15,7 @@ var getLocation = function (city) {
       //convert to JSON object // 
       response.json().then(function (data) {
         //extract city name, latitude and longitude to use in a second APIfetch
+        console.log(city);
         var latitude;
         var longitude;
         var savedCityName;
@@ -61,8 +62,8 @@ var currentWeather = function (city, data) {
 }
 
 var forecastWeather = function (forecast) {
-  if (!forecastBoxEl.firstChild) {
-    while (forecastBoxEl.lastChild) {
+  if (forecastBoxEl.lastChild) {
+    while (forecastBoxEl.lastChild !== forecastBoxEl.firstChild) {
       forecastBoxEl.removeChild(forecastBoxEl.lastChild);
     }
   }
@@ -75,7 +76,7 @@ var forecastWeather = function (forecast) {
     var date = moment().add(i + 1, "days").format("MMM Do");
 
     var forecastCardEl = document.createElement("card")
-    forecastCardEl.classList = "forecastCard col-2"
+    forecastCardEl.classList = "forecastCard"// col-2"
     forecastCardEl.innerHTML = `<h4>${date}</h4><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>Wind speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png">`
     forecastBoxEl.appendChild(forecastCardEl);
   }
@@ -138,12 +139,13 @@ var displayWeather = function (conditionsFromWeatherURL) {
 var addCity = function (cityName) {
   var newCityEl = document.createElement("button");
   newCityEl.textContent = cityName;
-  newCityEl.classList = "btn border-dark col-12";
+  newCityEl.classList = "btn border-dark col-12 cityBtn";
   listBoxEl.appendChild(newCityEl);
   // save list to local storage
 }
 
 var submitHandler = function (event) {
+  
   event.preventDefault();
   var cityName = cityInputEl.value.trim();
   if (cityName) {
@@ -156,8 +158,13 @@ var submitHandler = function (event) {
   };
 };
 
+var cityReload = function(event){
+  getLocation(event.target.innerText);
+  
+}
+
 
 
 
 searchButtonEl.addEventListener("click", submitHandler);
-// listBoxEl.addEventListener("click", getWeather);
+listBoxEl.addEventListener("click", cityReload);
