@@ -1,0 +1,42 @@
+.low{
+  color:green;
+}
+
+.moderate{
+  color: yellow;
+}
+
+.high{
+  color: red;
+}
+
+h1,h3{
+  text-align: center;
+  background-color: blue;
+  color: white;
+}
+
+body{
+  background-color: cadetblue;
+}
+
+.btn{
+  background-color: lightblue;
+  border: 1px solid black;
+}
+
+#searchBox{
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.forecastCard{
+  border: 1px solid black;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#display, .forecastCard{
+  border: 1px black solid;
+  background-color: blanchedalmond;
+}

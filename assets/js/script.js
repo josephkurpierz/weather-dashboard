@@ -45,31 +45,39 @@ var currentWeather = function (city, data) {
   var UVIndex = data.uvi;
   var windspeed = data.wind_speed;
   var weatherIcon = data.weather[0].icon;
-  
+  var date = moment().format("MMM Do");
+  var UVClass = "";
+  if (UVIndex < 3) {
+    UVClass = "low";
+  } else if (UVIndex < 7) {
+    UVClass = "moderate";
+  } else {
+    UVClass = "high"
+  }
   // fill card with current weather conditions to append to html
-  currentCard.innerHTML=`<h2>${city}</h2><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>UV Index: ${UVIndex}</p><p>Wind Speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png" alt="">`;
+  currentCard.innerHTML = `<h2>${city} ${date}</h2><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p class="${UVClass}">UV Index: ${UVIndex}</p><p>Wind Speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png" alt="">`;
   //set classes and such TO DO
   displayBoxEl.appendChild(currentCard);
 }
 
 var forecastWeather = function (forecast) {
-  if(forecastBoxEl.lastChild){
-    while(forecastBoxEl.lastChild){
+  if (!forecastBoxEl.firstChild) {
+    while (forecastBoxEl.lastChild) {
       forecastBoxEl.removeChild(forecastBoxEl.lastChild);
     }
   }
   //loop through data"forecast.length
-  for (var i=0; i< 5; i++){
-  var temperature = forecast[i].temp.day;
-  var humidity = forecast[i].humidity;
-  var UVIndex = forecast[i].uvi;
-  var windspeed = forecast[i].wind_speed;
-  var weatherIcon = forecast[i].weather[0].icon;
-  console.log("temperature from loop", temperature);
-  var forecastCardEl = document.createElement("card")
-  forecastCardEl.classList="col-2"
-  forecastCardEl.innerHTML=`<p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>UV Index: ${UVIndex}</p><p>Wind speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png">`
-  forecastBoxEl.appendChild(forecastCardEl);
+  for (var i = 0; i < 5; i++) {
+    var temperature = forecast[i].temp.day;
+    var humidity = forecast[i].humidity;
+    var windspeed = forecast[i].wind_speed;
+    var weatherIcon = forecast[i].weather[0].icon;
+    var date = moment().add(i + 1, "days").format("MMM Do");
+
+    var forecastCardEl = document.createElement("card")
+    forecastCardEl.classList = "forecastCard col-2"
+    forecastCardEl.innerHTML = `<h4>${date}</h4><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>Wind speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png">`
+    forecastBoxEl.appendChild(forecastCardEl);
   }
 }
 
@@ -130,7 +138,7 @@ var displayWeather = function (conditionsFromWeatherURL) {
 var addCity = function (cityName) {
   var newCityEl = document.createElement("button");
   newCityEl.textContent = cityName;
-  newCityEl.classList ="btn border-dark col-12";
+  newCityEl.classList = "btn border-dark col-12";
   listBoxEl.appendChild(newCityEl);
   // save list to local storage
 }
