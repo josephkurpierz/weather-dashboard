@@ -6,6 +6,19 @@ var displayBoxEl = document.getElementById("display");
 var forecastBoxEl = document.getElementById("forecast");
 var city;
 
+
+var retrieveCities = function () {
+  var retrievedCity = localStorage.getItem("newCty");
+  console.log(retrievedCity);
+  addCity(retrievedCity);
+};
+
+
+
+
+
+
+//function to get coordinates of city based on name
 var getLocation = function (city) {
 
   var queryURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIKey}`;
@@ -40,13 +53,14 @@ var getLocation = function (city) {
 var currentCard = document.createElement("card");
 
 var currentWeather = function (city, data) {
-  //saving pertinent weather parameters to variables
+  //assigning pertinent weather parameters to variables
   var temperature = data.temp;
   var humidity = data.humidity;
   var UVIndex = data.uvi;
   var windspeed = data.wind_speed;
   var weatherIcon = data.weather[0].icon;
   var date = moment().format("MMM Do");
+  //color coding UV index by CSS class
   var UVClass = "";
   if (UVIndex < 3) {
     UVClass = "low";
@@ -57,11 +71,12 @@ var currentWeather = function (city, data) {
   }
   // fill card with current weather conditions to append to html
   currentCard.innerHTML = `<h2>${city} ${date}</h2><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p class="${UVClass}">UV Index: ${UVIndex}</p><p>Wind Speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png" alt="">`;
-  //set classes and such TO DO
+
   displayBoxEl.appendChild(currentCard);
 }
 
 var forecastWeather = function (forecast) {
+  //remove previous 5 day forecast Cards
   if (forecastBoxEl.lastChild) {
     while (forecastBoxEl.lastChild !== forecastBoxEl.firstChild) {
       forecastBoxEl.removeChild(forecastBoxEl.lastChild);
@@ -76,7 +91,7 @@ var forecastWeather = function (forecast) {
     var date = moment().add(i + 1, "days").format("MMM Do");
 
     var forecastCardEl = document.createElement("card")
-    forecastCardEl.classList = "forecastCard"// col-2"
+    forecastCardEl.classList = "forecastCard"
     forecastCardEl.innerHTML = `<h4>${date}</h4><p>Temperature: ${temperature}</p><p>Humidity: ${humidity}</p><p>Wind speed: ${windspeed}</p><img src="http://openweathermap.org/img/wn/${weatherIcon}.png">`
     forecastBoxEl.appendChild(forecastCardEl);
   }
@@ -95,28 +110,6 @@ var getWeather = function (location) {
       response.json().then(function (data) {
         console.log(data);
         renderWeather(location.savedCityName, data);
-
-        //render current function
-
-        //get current weather data
-        // data.current.temp
-        // data.current.humidity
-        // data.current.uvi
-        // data.current.wind_speed
-        //data.current.weather[0].icon
-        // console.log("temp=", data.current.temp);
-        // console.log("uvindex=", data.current.uvi);
-        // console.log("icon", data.current.weather[0].icon);
-        // loop through data.daily[] for 5 day from 1-5
-        // data.daily[i].humidity
-        // data.daily[i].temp.day
-        // data.daily[i].uvi
-        // data.daily[i].wind_speed
-        // data.daily[i].weather[0].icon
-        // console.log("tomorrows temp=", data.daily[1].temp.day);
-        // console.log("tomorrows windspeed=", data.daily[1].wind_speed);
-        // console.log("tomorrows icon=", data.daily[1].weather[0].icon);
-
       })
     } else {
       alert("invalid city")
@@ -127,25 +120,27 @@ var getWeather = function (location) {
     })
 }
 
-
-
-var displayWeather = function (conditionsFromWeatherURL) {
-  // get conditions temperature, humidity, windspeed, UV index
-  // display cityname, date and conditions...with icon
-  // color code UV index (favorable/green, moderate/yellow, severe/red)
-  // get 5-day forcast
-};
-
 var addCity = function (cityName) {
+  //create button for searched city and add to page
   var newCityEl = document.createElement("button");
   newCityEl.textContent = cityName;
   newCityEl.classList = "btn border-dark col-12 cityBtn";
   listBoxEl.appendChild(newCityEl);
   // save list to local storage
+  // console.log(newCityEl.textContent);
+  // for (var i = 0; i<cityArr.length; i++){
+  //  if (savedCity){
+  //     cityArr.push(savedCity);
+  // }
+  // }
+  //vnew array to store cities if no vlaues
+  //add new city
+
+  localStorage.setItem("newCty", newCityEl.textContent);
 }
 
 var submitHandler = function (event) {
-  
+
   event.preventDefault();
   var cityName = cityInputEl.value.trim();
   if (cityName) {
@@ -158,13 +153,12 @@ var submitHandler = function (event) {
   };
 };
 
-var cityReload = function(event){
+var cityReload = function (event) {
   getLocation(event.target.innerText);
-  
 }
 
 
-
+retrieveCities();
 
 searchButtonEl.addEventListener("click", submitHandler);
 listBoxEl.addEventListener("click", cityReload);
