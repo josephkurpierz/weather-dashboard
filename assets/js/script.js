@@ -10,7 +10,9 @@ var city;
 var retrieveCities = function () {
   var retrievedCity = localStorage.getItem("newCty");
   console.log(retrievedCity);
+  if(retrievedCity){
   addCity(retrievedCity);
+  }
 };
 
 //function to get coordinates of city based on name
