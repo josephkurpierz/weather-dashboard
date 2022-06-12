@@ -14,15 +14,17 @@ h1,
 h3 {
   text-align: center;
   background-color: blue;
+  background-image: linear-gradient(45deg, blue 0%, lightblue 90%);
   color: white;
 }
 
 body {
-  background-color: cadetblue;
+  /* background-color: cadetblue; */
 }
 
 .btn {
-  background-color: lightblue;
+  background-color: blue;
+  background-image: linear-gradient(180deg, blue 10%, lightblue 50%);
   border: 1px solid black;
 }
 
@@ -40,7 +42,7 @@ body {
 #display,
 .forecastCard {
   border: 1px black solid;
-  background-color: blanchedalmond;
+  background-color: lightgray;
 }
 
 .forecastCard {
